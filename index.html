@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Osama Altamimi — Web &amp; Game Developer | Business Solutions</title>
+<meta name="description" content="Osama Altamimi — web developer, game developer and website manager. I turn complex regulations and business operations into precise digital products." />
+<meta property="og:title" content="Osama Altamimi — Web &amp; Game Developer" />
+<meta property="og:description" content="I turn complex regulations and business operations into precise digital products." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%9F%A3</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --bg:#08080c;
+  --bg-soft:#0d0d15;
+  --surface:rgba(255,255,255,.035);
+  --surface-hi:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.09);
+  --border-hi:rgba(168,132,252,.45);
+  --text:#ececf4;
+  --muted:#9695ad;
+  --dim:#6e6d85;
+  --accent:#8b5cf6;
+  --accent-2:#c084fc;
+  --accent-3:#6366f1;
+  --grad:linear-gradient(135deg,#8b5cf6 0%,#c084fc 55%,#818cf8 100%);
+  --grad-soft:linear-gradient(135deg,rgba(139,92,246,.16),rgba(192,132,252,.06));
+  --radius:18px;
+  --maxw:1140px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  font-weight:300;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(139,92,246,.35);color:#fff}
+
+/* ambient background */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(650px circle at 12% -5%,rgba(139,92,246,.20),transparent 60%),
+    radial-gradient(700px circle at 88% 8%,rgba(99,102,241,.14),transparent 60%),
+    radial-gradient(800px circle at 50% 105%,rgba(192,132,252,.10),transparent 60%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%);
+}
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:24px;width:100%}
+section{padding:110px 0;position:relative}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:16px;
+}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--grad)}
+
+h2.sec-title{
+  font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:700;letter-spacing:-.025em;
+  line-height:1.18;margin-bottom:16px;
+}
+.sec-lead{color:var(--muted);font-size:1.02rem;max-width:660px;line-height:1.75}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .35s var(--ease),border-color .35s var(--ease),backdrop-filter .35s;
+  border-bottom:1px solid transparent;
+}
+header.nav.scrolled{
+  background:rgba(8,8,12,.78);
+  backdrop-filter:blur(16px) saturate(160%);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  border-bottom-color:var(--border);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+.logo-mark{
+  width:36px;height:36px;border-radius:11px;background:var(--grad);
+  display:grid;place-items:center;font-weight:800;font-size:.8rem;letter-spacing:.01em;color:#0b0b12;
+  box-shadow:0 6px 22px rgba(139,92,246,.42);flex:none;
+}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{
+  font-size:.88rem;font-weight:400;color:var(--muted);position:relative;
+  transition:color .25s var(--ease);padding:4px 0;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:-2px;width:0;height:1.5px;
+  background:var(--grad);transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:12px 24px;border-radius:11px;font-size:.87rem;font-weight:500;
+  border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s;
+}
+.btn-primary{background:var(--grad);color:#0a0a11;font-weight:600;box-shadow:0 8px 26px rgba(139,92,246,.34)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(139,92,246,.5)}
+.btn-ghost{background:var(--surface);border-color:var(--border);color:var(--text)}
+.btn-ghost:hover{border-color:var(--border-hi);background:var(--surface-hi);transform:translateY(-2px)}
+
+.burger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px;border-radius:9px}
+.burger:hover{background:var(--surface)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:center}
+
+.badge{
+  display:inline-flex;align-items:center;gap:9px;padding:7px 15px 7px 11px;
+  border:1px solid var(--border);border-radius:100px;background:var(--surface);
+  font-size:.78rem;color:var(--muted);font-weight:400;margin-bottom:26px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.16);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+.hero h1{
+  font-size:clamp(2.6rem,6.2vw,4.4rem);font-weight:800;line-height:1.06;
+  letter-spacing:-.035em;margin-bottom:18px;
+}
+.hero h1 .hi{display:block;font-size:.34em;font-weight:400;color:var(--muted);letter-spacing:.01em;margin-bottom:12px}
+
+.typed-line{
+  font-size:clamp(1.05rem,2.6vw,1.55rem);font-weight:500;
+  min-height:1.6em;margin-bottom:26px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.typed-line .lbl{color:var(--dim);font-weight:300}
+#typed{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+.caret{display:inline-block;width:2.5px;height:1.05em;background:var(--accent-2);border-radius:2px;animation:blink 1s step-end infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero p.bio{color:var(--muted);font-size:1.04rem;max-width:580px;line-height:1.8;margin-bottom:34px}
+.hero p.bio strong{color:var(--text);font-weight:500}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:620px}
+.stat{
+  padding:18px 16px;border:1px solid var(--border);border-radius:14px;
+  background:var(--surface);transition:border-color .3s var(--ease),transform .3s var(--ease);
+}
+.stat:hover{border-color:var(--border-hi);transform:translateY(-3px)}
+.stat .num{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{font-size:.72rem;color:var(--dim);margin-top:4px;line-height:1.4}
+
+/* hero side card */
+.hero-side{position:relative}
+.orb{
+  aspect-ratio:1;border-radius:26px;border:1px solid var(--border);
+  background:var(--grad-soft);position:relative;overflow:hidden;
+  display:grid;place-items:center;
+}
+.orb::before{
+  content:'';position:absolute;inset:-40%;
+  background:conic-gradient(from 0deg,transparent,rgba(139,92,246,.5),transparent 42%);
+  animation:spin 9s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.orb-inner{
+  position:absolute;inset:1px;border-radius:25px;background:#0b0b13;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px;text-align:center;
+}
+.orb-avatar{
+  width:96px;height:96px;border-radius:50%;background:var(--grad);
+  display:grid;place-items:center;font-size:1.85rem;font-weight:800;letter-spacing:-.01em;color:#0b0b12;
+  box-shadow:0 10px 40px rgba(139,92,246,.4);
+}
+.orb-name{font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+.orb-role{font-size:.8rem;color:var(--dim)}
+.orb-tags{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.orb-tags span{font-size:.68rem;padding:4px 10px;border-radius:100px;background:var(--surface-hi);border:1px solid var(--border);color:var(--muted)}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.about-body p{color:var(--muted);line-height:1.85;margin-bottom:18px}
+.about-body p strong{color:var(--text);font-weight:500}
+.pillars{display:grid;gap:14px}
+.pillar{
+  display:flex;gap:16px;padding:22px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--surface);transition:border-color .3s var(--ease),transform .3s var(--ease),background .3s;
+}
+.pillar:hover{border-color:var(--border-hi);background:var(--surface-hi);transform:translateX(5px)}
+.pillar .ico{
+  width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:var(--grad-soft);border:1px solid var(--border);font-size:1.15rem;
+}
+.pillar h4{font-size:.98rem;font-weight:600;margin-bottom:5px;letter-spacing:-.01em}
+.pillar p{font-size:.86rem;color:var(--muted);line-height:1.7}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.group-head{display:flex;align-items:center;gap:16px;margin:64px 0 28px}
+.group-head:first-of-type{margin-top:44px}
+.group-head h3{font-size:1.12rem;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.group-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.group-head .count{font-size:.74rem;color:var(--dim);border:1px solid var(--border);padding:3px 10px;border-radius:100px}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+
+.card{
+  border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+  padding:28px;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .35s var(--ease),transform .35s var(--ease),background .35s;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--grad);opacity:0;transition:opacity .35s var(--ease);
+}
+.card:hover{border-color:var(--border-hi);transform:translateY(-5px);background:var(--surface-hi)}
+.card:hover::before{opacity:1}
+
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}
+.card-ico{
+  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex:none;
+  background:var(--grad-soft);border:1px solid var(--border);font-size:1.3rem;
+}
+.chip{
+  font-size:.67rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:100px;border:1px solid;white-space:nowrap;
+}
+.chip.live{color:#4ade80;border-color:rgba(74,222,128,.32);background:rgba(74,222,128,.09)}
+.chip.soon{color:var(--accent-2);border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.08)}
+
+.card h4{font-size:1.16rem;font-weight:600;letter-spacing:-.015em;margin-bottom:6px;line-height:1.35}
+.card .sub{font-size:.78rem;color:var(--accent-2);font-weight:500;margin-bottom:14px}
+.card .desc{font-size:.9rem;color:var(--muted);line-height:1.78;margin-bottom:18px}
+
+.impact{
+  border-left:2px solid rgba(139,92,246,.5);padding:2px 0 2px 14px;margin-bottom:20px;
+}
+.impact span{font-size:.83rem;color:#cfcde4;line-height:1.7;display:block}
+.impact .k{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);font-weight:600;display:block;margin-bottom:5px}
+
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.tags span{
+  font-size:.72rem;padding:5px 11px;border-radius:8px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);
+}
+.card-foot{margin-top:auto;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.link{
+  display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:500;color:var(--accent-2);
+  transition:gap .25s var(--ease),color .25s;
+}
+.link:hover{gap:11px;color:#e2d4ff}
+.link.muted{color:var(--dim)}
+.link.muted:hover{color:var(--muted)}
+
+/* featured */
+.card.featured{grid-column:span 2}
+@media(max-width:860px){.card.featured{grid-column:span 1}}
+
+/* ============================================================
+   EXPERIENCE
+   ============================================================ */
+.timeline{position:relative;padding-left:30px;margin-top:46px}
+.timeline::before{
+  content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1.5px;
+  background:linear-gradient(180deg,var(--accent),rgba(139,92,246,.25),transparent);
+}
+.tl-item{position:relative;padding-bottom:44px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:'';position:absolute;left:-30px;top:7px;width:13px;height:13px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 4px rgba(139,92,246,.14);
+}
+.tl-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:7px}
+.tl-period{
+  font-size:.72rem;font-weight:600;letter-spacing:.06em;color:var(--accent-2);
+  border:1px solid rgba(192,132,252,.26);background:rgba(192,132,252,.07);
+  padding:3px 11px;border-radius:100px;
+}
+.tl-item h4{font-size:1.14rem;font-weight:600;letter-spacing:-.015em;margin-bottom:3px}
+.tl-org{font-size:.85rem;color:var(--dim);margin-bottom:13px}
+.tl-item ul{list-style:none;display:grid;gap:9px}
+.tl-item li{position:relative;padding-left:20px;font-size:.9rem;color:var(--muted);line-height:1.75}
+.tl-item li::before{
+  content:'';position:absolute;left:0;top:.66em;width:6px;height:6px;border-radius:2px;
+  background:var(--grad);
+}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:46px}
+.skill-box{padding:26px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);transition:border-color .3s var(--ease),transform .3s var(--ease)}
+.skill-box:hover{border-color:var(--border-hi);transform:translateY(-4px)}
+.skill-box h4{font-size:.95rem;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.skill-box h4 .i{font-size:1.05rem}
+.skill-box .tags{margin-bottom:0}
+
+/* ============================================================
+   EDUCATION
+   ============================================================ */
+.edu{
+  display:flex;gap:26px;align-items:flex-start;padding:32px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--grad-soft);margin-top:44px;
+}
+.edu .cap{
+  width:60px;height:60px;flex:none;border-radius:16px;display:grid;place-items:center;
+  background:var(--grad);font-size:1.7rem;box-shadow:0 8px 26px rgba(139,92,246,.34);
+}
+.edu h4{font-size:1.18rem;font-weight:600;letter-spacing:-.015em;margin-bottom:5px}
+.edu .org{font-size:.9rem;color:var(--accent-2);font-weight:500;margin-bottom:12px}
+.edu p{font-size:.9rem;color:var(--muted);line-height:1.78}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-box{
+  text-align:center;padding:70px 34px;border:1px solid var(--border);border-radius:26px;
+  background:var(--grad-soft);position:relative;overflow:hidden;
+}
+.contact-box::before{
+  content:'';position:absolute;top:-55%;left:50%;transform:translateX(-50%);
+  width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,.2),transparent 68%);pointer-events:none;
+}
+.contact-box > *{position:relative}
+.contact-box h2{font-size:clamp(1.8rem,4.4vw,2.7rem);font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.contact-box p{color:var(--muted);max-width:520px;margin:0 auto 32px;line-height:1.8}
+.contact-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.socials{display:flex;gap:12px;justify-content:center;margin-top:36px}
+.socials a{
+  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--muted);
+  transition:all .28s var(--ease);
+}
+.socials a:hover{border-color:var(--border-hi);color:var(--text);transform:translateY(-4px);background:var(--surface-hi)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.foot-inner p{font-size:.82rem;color:var(--dim)}
+.foot-inner a{font-size:.82rem;color:var(--dim);transition:color .25s}
+.foot-inner a:hover{color:var(--accent-2)}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero-side{max-width:330px;margin-inline:auto;width:100%}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:768px){
+  section{padding:80px 0}
+  .nav-links{
+    position:fixed;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+    background:rgba(10,10,16,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);padding:8px 24px 22px;
+    transform:translateY(-14px);opacity:0;pointer-events:none;transition:all .3s var(--ease);
+  }
+  .nav-links.open{transform:none;opacity:1;pointer-events:auto}
+  .nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.95rem}
+  .nav-links .btn{margin-top:16px;width:100%}
+  .burger{display:grid;place-items:center}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .edu{flex-direction:column;gap:20px;padding:26px}
+  .contact-box{padding:52px 24px}
+  .card{padding:24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+/* never let animation hide content when printing / saving to PDF */
+@media print{
+  .reveal{opacity:1 !important;transform:none !important}
+  body::before,body::after{display:none}
+  header.nav{position:static}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">OA</span>
+      <span>Osama Altamimi</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge"><span class="dot"></span> Available for opportunities · Riyadh, Saudi Arabia</div>
+
+      <h1>
+        <span class="hi">Hi, I'm</span>
+        Osama Altamimi<span class="grad-text">.</span>
+      </h1>
+
+      <div class="typed-line">
+        <span class="lbl">I build as a</span>
+        <span id="typed"></span><span class="caret"></span>
+      </div>
+
+      <p class="bio">
+        I turn <strong>complex regulations and business operations</strong> into precise digital products.
+        From a ZATCA-compliant e-invoicing system to a full manufacturer platform — I don't just write
+        code, I <strong>ship products that solve a real business problem</strong> and manage them after launch.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">
+          View my work
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:osaltamimi@hotmail.com" class="btn btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          Contact me
+        </a>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="num">29</div><div class="lbl">Months in institutional operations</div></div>
+        <div class="stat"><div class="num">2</div><div class="lbl">Live production platforms</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Games built end-to-end</div></div>
+        <div class="stat"><div class="num">100%</div><div class="lbl">ZATCA-compliant output</div></div>
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <div class="orb">
+        <div class="orb-inner">
+          <div class="orb-avatar">OA</div>
+          <div>
+            <div class="orb-name">Osama Altamimi</div>
+            <div class="orb-role">Web &amp; Game Developer</div>
+          </div>
+          <div class="orb-tags">
+            <span>Website Manager</span>
+            <span>Compliance Tools</span>
+            <span>Game Dev</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="eyebrow">About me</div>
+        <h2 class="sec-title">Developer with an<br /><span class="grad-text">operator's mindset.</span></h2>
+        <div class="about-body" style="margin-top:22px">
+          <p>
+            Most developers stop at the code. I spent <strong>29 months inside the General Organization
+            for Social Insurance (GOSI)</strong> — a regulated, process-driven institution where accuracy
+            isn't a nice-to-have, it's the requirement. That taught me how compliance, documentation and
+            operations actually work before I ever built a tool for them.
+          </p>
+          <p>
+            That background is why my products land differently. I can read a government regulation, understand
+            what the business is legally exposed to, and translate it into software that gets it right —
+            like the <strong>ZATCA e-invoicing system</strong> I built.
+          </p>
+          <p>
+            As a <strong>Website Manager</strong>, I own platforms end-to-end: performance, content, uptime and
+            the commercial outcome — not just the deploy. And as a <strong>Tuwaiq Academy game development
+            graduate</strong>, I bring the systems thinking and hard problem-solving that games demand.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillars reveal">
+        <div class="pillar">
+          <div class="ico">⚖️</div>
+          <div>
+            <h4>Regulation → Product</h4>
+            <p>I read complex government rules and turn them into accurate, auditable digital tools that keep businesses compliant.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="ico">🚀</div>
+          <div>
+            <h4>Ship &amp; Operate</h4>
+            <p>I deliver commercial platforms and then run them — optimizing performance, content and conversion after launch.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="ico">🎮</div>
+          <div>
+            <h4>Hard Problem Solving</h4>
+            <p>Game development is applied logic under pressure: state, physics, edge cases. It's where my engineering depth was built.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="ico">📈</div>
+          <div>
+            <h4>Business &amp; Value First</h4>
+            <p>A sales and marketing background means I measure work by the value it adds to the user and the company — not the stack.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ WORK ══════════════════════ -->
+<section id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Selected work</div>
+      <h2 class="sec-title">Products that solve<br /><span class="grad-text">a real business problem.</span></h2>
+      <p class="sec-lead">Two live platforms serving real companies, plus three games where the engineering gets loud.</p>
+    </div>
+
+    <!-- ── Group 1: Business & Compliance ── -->
+    <div class="group-head reveal">
+      <h3>Business &amp; Compliance Solutions</h3>
+      <span class="count">2 projects</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="proj-grid">
+
+      <!-- ZATCA -->
+      <article class="card featured reveal">
+        <div class="card-top">
+          <div class="card-ico">🧾</div>
+          <span class="chip live">● Live</span>
+        </div>
+        <h4>Saudi E-Invoice System — ZATCA Compliant</h4>
+        <div class="sub">Regulatory compliance tool · Free public utility</div>
+        <p class="desc">
+          A complete e-invoicing platform that lets any Saudi business issue <strong>legally valid tax invoices</strong>
+          in seconds. It captures the seller's VAT registration details, calculates 15% VAT across unlimited line items,
+          and generates the <strong>ZATCA-compliant QR code</strong> — verifiable directly in the official ZATCA app —
+          then exports a print-ready invoice or PDF.
+        </p>
+        <div class="impact">
+          <span class="k">Why it matters</span>
+          <span>
+            Non-compliant invoicing carries real penalties in Saudi Arabia, and most small businesses can't afford
+            enterprise ERP software. This tool removes that barrier entirely — zero cost, zero setup, fully compliant
+            output. It's proof I can take a dense government regulation and ship it as a tool people actually use.
+          </span>
+        </div>
+        <div class="tags">
+          <span>ZATCA Phase 1</span><span>QR Generation</span><span>VAT Engine</span>
+          <span>Arabic RTL UI</span><span>PDF / Print Export</span><span>Vercel</span>
+        </div>
+        <div class="card-foot">
+          <a class="link" href="https://saudi-e-invoice-system.vercel.app" target="_blank" rel="noopener noreferrer">
+            Open live app
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- HPC Factory -->
+      <article class="card featured reveal">
+        <div class="card-top">
+          <div class="card-ico">🏭</div>
+          <span class="chip live">● Live</span>
+        </div>
+        <h4>High Pressure Cables Factory — Corporate Platform</h4>
+        <div class="sub">Commercial website · Manufacturer, Riyadh</div>
+        <p class="desc">
+          A full bilingual (English / Arabic) platform for a Saudi cable and wire manufacturer. It presents
+          <strong>five complete product families</strong> — flexible cords, flat cables, building wires, THHN/THWN and
+          bare copper conductors — alongside certifications against Saudi, IEC and British standards, and a
+          <strong>quote request flow</strong> that turns visitors into qualified leads.
+        </p>
+        <div class="impact">
+          <span class="k">Why it matters</span>
+          <span>
+            Industrial buyers evaluate suppliers on credibility before price. The site was built to answer that:
+            standards and certifications up front, clear technical product data, and a direct path to a quote —
+            giving the factory a serious commercial presence in both of its markets.
+          </span>
+        </div>
+        <div class="tags">
+          <span>Bilingual EN / AR</span><span>Product Catalog</span><span>Lead Generation</span>
+          <span>Responsive</span><span>SEO</span><span>Site Management</span>
+        </div>
+        <div class="card-foot">
+          <a class="link" href="https://hpcfactory.com/" target="_blank" rel="noopener noreferrer">
+            Visit hpcfactory.com
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- ── Group 2: Games ── -->
+    <div class="group-head reveal">
+      <h3>Games &amp; Creative Engineering</h3>
+      <span class="count">3 games</span>
+      <span class="line"></span>
+    </div>
+
+    <!--
+      ════════════════════════════════════════════════════════════
+      ✏️  OPTIONAL — when you're ready, split this single card into
+          three (one per game). Copy the <article> block, then give
+          each one its real name, a line on the core gameplay loop,
+          and the hardest technical problem you solved in it.
+      ════════════════════════════════════════════════════════════
+    -->
+    <div class="proj-grid">
+
+      <article class="card featured reveal">
+        <div class="card-top">
+          <div class="card-ico">🕹️</div>
+          <span class="chip soon">Bootcamp Portfolio</span>
+        </div>
+        <h4>Three Games, Built End-to-End</h4>
+        <div class="sub">Tuwaiq Academy — Game Development Bootcamp</div>
+        <p class="desc">
+          Across an intensive, project-based program I designed, programmed and shipped
+          <strong>three complete games</strong> — each taken from concept through gameplay
+          programming and level design to a finished, playable build.
+        </p>
+        <div class="impact">
+          <span class="k">Why it matters</span>
+          <span>
+            Games are where engineering gets stress-tested. Real-time state management, collision and
+            physics, input handling, and the endless edge cases a player finds the second they do
+            something you didn't plan for — nothing exposes sloppy logic faster. That discipline is
+            exactly what I bring to business systems, where a wrong number has a cost.
+          </span>
+        </div>
+        <div class="tags">
+          <span>Unity</span><span>C#</span><span>Gameplay Systems</span><span>Physics &amp; Collision</span>
+          <span>State Machines</span><span>Level Design</span><span>Build &amp; Release</span>
+        </div>
+        <div class="card-foot">
+          <a class="link muted" href="#contact">Playable builds &amp; technical breakdowns on request →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ EXPERIENCE ══════════════════════ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Experience</div>
+      <h2 class="sec-title">Where I learned to<br /><span class="grad-text">run things, not just build them.</span></h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <span class="tl-period">Current</span>
+        </div>
+        <h4>Website Manager</h4>
+        <div class="tl-org">High Pressure Cables Factory Co. · Riyadh</div>
+        <ul>
+          <li>Own the company's digital platform end-to-end — content, performance, uptime and technical health.</li>
+          <li>Manage the bilingual product catalog so technical specifications stay accurate across English and Arabic.</li>
+          <li>Optimize page speed, structure and SEO to keep the site discoverable to industrial buyers.</li>
+          <li>Maintain the quote request pipeline as a working commercial channel, not just a contact form.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <span class="tl-period">29 months</span>
+        </div>
+        <h4>Operations &amp; Administration</h4>
+        <div class="tl-org">General Organization for Social Insurance (GOSI) · Saudi Arabia</div>
+        <ul>
+          <li>Worked 29 months inside a large regulated government institution, handling insurance records and beneficiary processes.</li>
+          <li>Applied strict compliance procedures where documentation accuracy is legally consequential.</li>
+          <li>Learned how enterprise and public-sector organizations actually operate — approvals, audit trails, escalation paths.</li>
+          <li>Built the regulatory literacy that later let me design a ZATCA-compliant invoicing product with confidence.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <span class="tl-period">Foundation</span>
+        </div>
+        <h4>Sales &amp; Marketing</h4>
+        <div class="tl-org">Commercial background</div>
+        <ul>
+          <li>Learned to lead with value and outcome instead of features — the habit that shapes how I scope every project.</li>
+          <li>Comfortable talking to clients and stakeholders, translating business needs into technical requirements.</li>
+          <li>Understand the funnel a website sits in, which is why my builds are structured around conversion.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SKILLS ══════════════════════ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Capabilities</div>
+      <h2 class="sec-title">What I bring<br /><span class="grad-text">to the table.</span></h2>
+    </div>
+
+    <div class="skill-grid">
+      <div class="skill-box reveal">
+        <h4><span class="i">💻</span> Web Development</h4>
+        <div class="tags">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Responsive Design</span>
+          <span>RTL / Arabic UI</span><span>Vercel</span><span>Git</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <h4><span class="i">🎮</span> Game Development</h4>
+        <div class="tags">
+          <span>Unity</span><span>C#</span><span>Gameplay Systems</span><span>Physics</span>
+          <span>State Machines</span><span>Level Design</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <h4><span class="i">⚖️</span> Compliance &amp; Business Systems</h4>
+        <div class="tags">
+          <span>ZATCA E-Invoicing</span><span>VAT Logic</span><span>QR Standards</span>
+          <span>Regulatory Analysis</span><span>Documentation</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <h4><span class="i">📊</span> Management &amp; Operations</h4>
+        <div class="tags">
+          <span>Website Management</span><span>Performance Optimization</span><span>SEO</span>
+          <span>Content Strategy</span><span>Process Compliance</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <h4><span class="i">🤝</span> Business &amp; Communication</h4>
+        <div class="tags">
+          <span>Sales</span><span>Marketing</span><span>Client Communication</span>
+          <span>Requirements Gathering</span><span>Bilingual EN / AR</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <h4><span class="i">🧠</span> Engineering Mindset</h4>
+        <div class="tags">
+          <span>Problem Solving</span><span>Logic Design</span><span>Debugging</span>
+          <span>Edge Case Handling</span><span>Self-Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="edu reveal">
+      <div class="cap">🎓</div>
+      <div>
+        <h4>Game Development Graduate</h4>
+        <div class="org">Tuwaiq Academy — Game Development Bootcamp</div>
+        <p>
+          An intensive, project-based program covering gameplay programming, engine workflows and full
+          game production cycles. Graduated with three complete games built end-to-end — the training
+          that turned problem solving into a working engineering discipline.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CONTACT ══════════════════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <div class="eyebrow" style="justify-content:center">Let's talk</div>
+      <h2>Got a product that needs<br /><span class="grad-text">building and running?</span></h2>
+      <p>
+        Whether it's a compliance tool, a commercial platform, or a game idea — I'd like to hear about it.
+        I'm open to full-time roles and freelance work.
+      </p>
+      <div class="contact-cta">
+        <a href="mailto:osaltamimi@hotmail.com" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          osaltamimi@hotmail.com
+        </a>
+        <a href="#work" class="btn btn-ghost">See my work again</a>
+      </div>
+
+      <div class="socials">
+        <a href="https://github.com/tamimi-7" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/osama-altamimi-" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.34 18V9.9H5.83V18h2.51ZM7.09 8.79a1.46 1.46 0 1 0 0-2.91 1.46 1.46 0 0 0 0 2.91ZM18.2 18v-4.63c0-2.43-1.3-3.56-3.03-3.56-1.4 0-2.02.77-2.37 1.31V9.9h-2.51c.03.71 0 8.1 0 8.1h2.51v-4.52c0-.23.02-.45.08-.61.18-.45.59-.91 1.28-.91.9 0 1.26.69 1.26 1.7V18h2.78Z"/></svg>
+        </a>
+        <a href="mailto:osaltamimi@hotmail.com" aria-label="Email">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="wrap foot-inner">
+    <p>© <span id="year"></span> Osama Altamimi — Web &amp; Game Developer</p>
+    <p>Built and maintained by me. Riyadh, Saudi Arabia 🇸🇦</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── typing effect ── */
+  var roles = [
+    'Web Developer',
+    'Game Developer',
+    'Website Manager',
+    'Business Solutions Builder',
+    'Problem Solver'
+  ];
+  var el = document.getElementById('typed');
+  var i = 0, ch = 0, deleting = false;
+
+  function tick() {
+    var word = roles[i];
+    ch += deleting ? -1 : 1;
+    el.textContent = word.slice(0, ch);
+
+    var delay = deleting ? 45 : 85;
+    if (!deleting && ch === word.length) {
+      delay = 1900;
+      deleting = true;
+    } else if (deleting && ch === 0) {
+      deleting = false;
+      i = (i + 1) % roles.length;
+      delay = 320;
+    }
+    setTimeout(tick, delay);
+  }
+  tick();
+
+  /* ── nav on scroll ── */
+  var nav = document.getElementById('nav');
+  function onScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── mobile menu ── */
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.closest('a')) {
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ── scroll reveal ── */
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    items.forEach(function (n, idx) {
+      n.style.transitionDelay = (idx % 4) * 70 + 'ms';
+      io.observe(n);
+    });
+
+    /* safety net: if the observer never fires (odd browser, headless
+       renderer, crawler), show everything rather than a blank page */
+    setTimeout(function () {
+      if (!document.querySelector('.reveal.in')) {
+        items.forEach(function (n) { n.classList.add('in'); });
+      }
+    }, 1800);
+  } else {
+    items.forEach(function (n) { n.classList.add('in'); });
+  }
+
+  /* ── year ── */
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>
