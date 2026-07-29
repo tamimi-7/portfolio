@@ -1,4 +1,6 @@
-# Osama — Portfolio
+# Osama Altamimi — Portfolio
+
+**Live:** https://tamimi-7.github.io/portfolio/
 
 Single-file portfolio site. No build step, no dependencies, no Node required.
 Everything (HTML, CSS, JS) lives in `index.html`.
