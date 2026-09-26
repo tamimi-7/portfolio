@@ -1,49 +1,52 @@
 # Osama Altamimi — Portfolio
 
-**Live:** https://tamimi-7.github.io/portfolio/
+**Live:** https://tamimi-7.github.io/portfolio/ · Arabic: https://tamimi-7.github.io/portfolio/?lang=ar
 
-Single-file portfolio site. No build step, no dependencies, no Node required.
-Everything (HTML, CSS, JS) lives in `index.html`.
+A bilingual (English / Arabic) editorial portfolio. One HTML file, no build step,
+no framework, no dependencies.
+
+```
+index.html        page, styles, scripts and the Arabic dictionary
+assets/           product screenshots, favicon, social share image (og.png)
+```
 
 ## Preview locally
 
-Double-click `index.html`. That's it.
-
-## Status
-
-Complete and ready to publish. No placeholders left.
-
-**Optional upgrade:** the three bootcamp games are presented as one card. To split
-them into three individual project cards, find the `✏️ OPTIONAL` comment in
-`index.html` and duplicate the `<article>` block — one per game, each with its real
-name, core gameplay loop, and the hardest technical problem you solved in it.
-Named games with specifics are always stronger than a summary.
+Double-click `index.html`, or run `python3 -m http.server` and open http://localhost:8000.
 
 ## Projects featured
 
-| Project | Live | Source |
-|---|---|---|
-| Inglish — STEP Prep & English Learning Platform (flagship) | https://step-english-lime.vercel.app | https://github.com/tamimi-7/step-english |
-| Saudi E-Invoice System — ZATCA Compliant | https://saudi-e-invoice-system.vercel.app | — |
-| High Pressure Cables Factory — Corporate Platform | https://hpcfactory.com/ | — |
-| Three bootcamp games (Tuwaiq Academy) | on request | — |
+| # | Project | Live | Source |
+|---|---|---|---|
+| 01 | Inglish — STEP prep & English learning platform (flagship) | https://step-english-lime.vercel.app | https://github.com/tamimi-7/step-english |
+| 02 | Saudi E-Invoice — ZATCA compliant | https://saudi-e-invoice-system.vercel.app | — |
+| 03 | High Pressure Cables Factory | https://hpcfactory.com/ | — |
+| 04 | Three games — Tuwaiq Academy | on request | — |
 
-To add a project, copy one `<article class="card ...">` block inside `#work` in `index.html`.
+## How it works
+
+**Two languages.** English lives in the HTML. Every translatable element has a
+`data-i18n="key"` attribute, and the Arabic for that key is in the `AR` object at the
+bottom of `index.html`. Switching language swaps the text, flips `dir` to `rtl`, and
+changes fonts (Amiri + IBM Plex Sans Arabic). The choice is remembered, and
+`?lang=ar` opens the Arabic version directly (useful for sharing).
+
+To change text: edit the English in the HTML **and** the same key in `AR`.
+To add a new element: give it a new `data-i18n` key and add that key to `AR`.
+Latin-only text inside Arabic (e.g. `C#`) should be wrapped in `<bdi>` so it doesn't flip.
+
+**Light / dark.** Follows the system setting, with a toggle in the top bar. All colours are
+tokens at the top of the `<style>` block.
+
+**Layout.** Built with CSS logical properties (`margin-inline`, `inset-inline-start`…) so
+the same CSS mirrors correctly in RTL.
+
+## Updating screenshots
+
+The Inglish screenshots in `assets/` were captured from the app running locally
+(`node dev/server.js` in the step-english repo) with Playwright, at 1440×900 for desktop
+and 390×844 @2x for phones. Replace a file with the same name to update it.
 
 ## Deploy
 
-**Vercel (easiest)** — go to [vercel.com/new](https://vercel.com/new), drag this folder onto the page. Live in ~20 seconds.
-
-**Netlify** — drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop).
-
-**GitHub Pages** — push this folder to a repo, then Settings → Pages → deploy from `main` / root.
-
-```bash
-git init && git add . && git commit -m "Portfolio"
-```
-
-## Notes
-
-- Poppins loads from Google Fonts; offline it falls back to Segoe UI/system fonts.
-- Respects `prefers-reduced-motion` and prints cleanly to PDF.
-- Responsive down to mobile, with a hamburger menu under 768px.
+GitHub Pages deploys from `main` / root. Merging to `main` publishes the site.
