@@ -19,6 +19,17 @@ them into three individual project cards, find the `✏️ OPTIONAL` comment in
 name, core gameplay loop, and the hardest technical problem you solved in it.
 Named games with specifics are always stronger than a summary.
 
+## Projects featured
+
+| Project | Live | Source |
+|---|---|---|
+| Inglish — STEP Prep & English Learning Platform (flagship) | https://step-english-lime.vercel.app | https://github.com/tamimi-7/step-english |
+| Saudi E-Invoice System — ZATCA Compliant | https://saudi-e-invoice-system.vercel.app | — |
+| High Pressure Cables Factory — Corporate Platform | https://hpcfactory.com/ | — |
+| Three bootcamp games (Tuwaiq Academy) | on request | — |
+
+To add a project, copy one `<article class="card ...">` block inside `#work` in `index.html`.
+
 ## Deploy
 
 **Vercel (easiest)** — go to [vercel.com/new](https://vercel.com/new), drag this folder onto the page. Live in ~20 seconds.

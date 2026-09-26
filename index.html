@@ -8,6 +8,13 @@
 <meta property="og:title" content="Osama Altamimi — Web &amp; Game Developer" />
 <meta property="og:description" content="I turn complex regulations and business operations into precise digital products." />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://tamimi-7.github.io/portfolio/" />
+<meta name="twitter:card" content="summary" />
+<meta name="theme-color" content="#08080c" />
+<link rel="canonical" href="https://tamimi-7.github.io/portfolio/" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Osama Altamimi","jobTitle":"Web & Game Developer","address":{"@type":"PostalAddress","addressLocality":"Riyadh","addressCountry":"SA"},"email":"mailto:osaltamimi@hotmail.com","url":"https://tamimi-7.github.io/portfolio/","sameAs":["https://github.com/tamimi-7","https://www.linkedin.com/in/osama-altamimi-"]}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%9F%A3</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -50,6 +57,9 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 ::selection{background:rgba(139,92,246,.35);color:#fff}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:16px;top:-60px;z-index:200;padding:10px 16px;border-radius:10px;background:var(--grad);color:#0a0a11;font-weight:600;font-size:.85rem;transition:top .2s}
+.skip:focus{top:16px}
 
 /* ambient background */
 body::before{
@@ -118,8 +128,9 @@ header.nav.scrolled{
   content:'';position:absolute;left:0;bottom:-2px;width:0;height:1.5px;
   background:var(--grad);transition:width .3s var(--ease);
 }
-.nav-links a:hover{color:var(--text)}
-.nav-links a:hover::after{width:100%}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.btn::after{display:none}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
@@ -282,6 +293,25 @@ header.nav.scrolled{
 .link.muted{color:var(--dim)}
 .link.muted:hover{color:var(--muted)}
 
+/* in-card metrics (flagship) */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.metric{padding:12px 10px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025);text-align:center}
+.metric b{display:block;font-size:1.25rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.metric small{display:block;font-size:.68rem;color:var(--dim);margin-top:3px;line-height:1.35}
+.features{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;margin-bottom:20px}
+.features li{position:relative;padding-left:18px;font-size:.85rem;color:var(--muted);line-height:1.65}
+.features li::before{content:'';position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--grad)}
+.features li strong{color:var(--text);font-weight:500}
+.chip.new{color:#fbbf24;border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.08)}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:640px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .group-head{gap:12px}
+  .group-head h3{white-space:normal;font-size:1.02rem}
+  .group-head .line{display:none}
+  .features{grid-template-columns:1fr}
+}
+
 /* featured */
 .card.featured{grid-column:span 2}
 @media(max-width:860px){.card.featured{grid-column:span 1}}
@@ -419,6 +449,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <!-- ══════════════════════ NAV ══════════════════════ -->
 <header class="nav" id="nav">
@@ -440,6 +471,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
   </div>
 </header>
 
+<main id="main">
 <!-- ══════════════════════ HERO ══════════════════════ -->
 <section class="hero" id="top">
   <div class="wrap hero-grid">
@@ -458,7 +490,8 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
 
       <p class="bio">
         I turn <strong>complex regulations and business operations</strong> into precise digital products.
-        From a ZATCA-compliant e-invoicing system to a full manufacturer platform — I don't just write
+        From a full-stack English learning platform with accounts and live competitions, to a ZATCA-compliant
+        e-invoicing system and a manufacturer's corporate site — I don't just write
         code, I <strong>ship products that solve a real business problem</strong> and manage them after launch.
       </p>
 
@@ -474,8 +507,8 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
       </div>
 
       <div class="stats">
+        <div class="stat"><div class="num">3</div><div class="lbl">Live production platforms</div></div>
         <div class="stat"><div class="num">29</div><div class="lbl">Months in institutional operations</div></div>
-        <div class="stat"><div class="num">2</div><div class="lbl">Live production platforms</div></div>
         <div class="stat"><div class="num">3</div><div class="lbl">Games built end-to-end</div></div>
         <div class="stat"><div class="num">100%</div><div class="lbl">ZATCA-compliant output</div></div>
       </div>
@@ -491,6 +524,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
           </div>
           <div class="orb-tags">
             <span>Website Manager</span>
+            <span>Full-Stack</span>
             <span>Compliance Tools</span>
             <span>Game Dev</span>
           </div>
@@ -517,7 +551,8 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
           <p>
             That background is why my products land differently. I can read a government regulation, understand
             what the business is legally exposed to, and translate it into software that gets it right —
-            like the <strong>ZATCA e-invoicing system</strong> I built.
+            like the <strong>ZATCA e-invoicing system</strong> I built. And when I see a problem people face every day —
+            like preparing for the STEP exam — I build the whole product myself, from content and backend to launch.
           </p>
           <p>
             As a <strong>Website Manager</strong>, I own platforms end-to-end: performance, content, uptime and
@@ -567,7 +602,81 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
     <div class="reveal">
       <div class="eyebrow">Selected work</div>
       <h2 class="sec-title">Products that solve<br /><span class="grad-text">a real business problem.</span></h2>
-      <p class="sec-lead">Two live platforms serving real companies, plus three games where the engineering gets loud.</p>
+      <p class="sec-lead">Three live platforms serving real users and real companies, plus three games where the engineering gets loud.</p>
+    </div>
+
+    <!-- ── Group 0: Flagship ── -->
+    <div class="group-head reveal">
+      <h3>Full-Stack Learning Platform</h3>
+      <span class="count">Flagship</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="proj-grid">
+
+      <!-- STEP English -->
+      <article class="card featured reveal">
+        <div class="card-top">
+          <div class="card-ico">📚</div>
+          <div class="chip-row">
+            <span class="chip new">Latest</span>
+            <span class="chip live">● Live</span>
+          </div>
+        </div>
+        <h4>Inglish — STEP Prep &amp; English Learning Platform</h4>
+        <div class="sub">Full-stack web app · Arabic RTL · Accounts, leaderboards &amp; live events</div>
+        <p class="desc">
+          An Arabic-first platform for Saudi learners preparing for the <strong>STEP English exam</strong> — and for
+          anyone building their English from A1 to C2. It pairs a STEP track (adaptive training with
+          <strong>spaced repetition</strong>, timed exam simulation, past-exam collections, grammar and vocabulary)
+          with a general-English track of short units, speaking practice and an <strong>audio story library</strong>
+          where every sentence lights up as it's read aloud. Around the learning sits a full
+          <strong>competition layer</strong>: accounts, weekly and monthly leaderboards, challenges, streaks and a
+          live weekly word battle.
+        </p>
+
+        <div class="metrics">
+          <div class="metric"><b>56</b><small>Narrated stories, A1–C2</small></div>
+          <div class="metric"><b>1,100+</b><small>Words across 46 topics</small></div>
+          <div class="metric"><b>40+</b><small>Grammar lessons with practice</small></div>
+          <div class="metric"><b>100+</b><small>Real STEP exam models</small></div>
+        </div>
+
+        <ul class="features">
+          <li><strong>Adaptive training</strong> — targets weak topics and schedules reviews with spaced repetition.</li>
+          <li><strong>Exam simulation</strong> — timed quiz that mirrors the real test, shareable as challenge links.</li>
+          <li><strong>Read-along audio</strong> — per-sentence timing highlights text in sync with narration.</li>
+          <li><strong>Speaking practice</strong> — 21 dialogues with pronunciation checks via the Web Speech API.</li>
+          <li><strong>Transparent points</strong> — every point is logged by source, so totals always match the breakdown.</li>
+          <li><strong>Live events</strong> — Friday word battle, golden hour, daily streaks and push reminders.</li>
+        </ul>
+
+        <div class="impact">
+          <span class="k">Why it matters</span>
+          <span>
+            STEP scores gate university admission and scholarships in Saudi Arabia, but most prep material is scattered
+            PDFs with no feedback. This turns it into one guided, measurable path — and the competition layer keeps
+            people coming back daily. It's the project where I designed and ran everything myself: product, content
+            pipeline, backend, data model and deployment.
+          </span>
+        </div>
+        <div class="tags">
+          <span>Vanilla JS</span><span>Vercel Serverless</span><span>Redis (Upstash)</span><span>PWA</span>
+          <span>Web Push</span><span>Web Speech API</span><span>Spaced Repetition</span><span>Auth (scrypt + signed sessions)</span>
+          <span>Arabic RTL UI</span>
+        </div>
+        <div class="card-foot">
+          <a class="link" href="https://step-english-lime.vercel.app" target="_blank" rel="noopener noreferrer">
+            Open live app
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+          <a class="link muted" href="https://github.com/tamimi-7/step-english" target="_blank" rel="noopener noreferrer">
+            View source
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </article>
+
     </div>
 
     <!-- ── Group 1: Business & Compliance ── -->
@@ -765,10 +874,17 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
 
     <div class="skill-grid">
       <div class="skill-box reveal">
+        <h4><span class="i">🗄️</span> Backend &amp; Data</h4>
+        <div class="tags">
+          <span>Node.js</span><span>Serverless Functions</span><span>REST APIs</span><span>Redis</span>
+          <span>Authentication</span><span>Web Push</span><span>Leaderboards</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
         <h4><span class="i">💻</span> Web Development</h4>
         <div class="tags">
           <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Responsive Design</span>
-          <span>RTL / Arabic UI</span><span>Vercel</span><span>Git</span>
+          <span>RTL / Arabic UI</span><span>PWA &amp; Service Workers</span><span>Web Speech API</span><span>Vercel</span><span>Git</span>
         </div>
       </div>
       <div class="skill-box reveal">
@@ -831,7 +947,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
       <div class="eyebrow" style="justify-content:center">Let's talk</div>
       <h2>Got a product that needs<br /><span class="grad-text">building and running?</span></h2>
       <p>
-        Whether it's a compliance tool, a commercial platform, or a game idea — I'd like to hear about it.
+        Whether it's a learning platform, a compliance tool, a commercial site, or a game idea — I'd like to hear about it.
         I'm open to full-time roles and freelance work.
       </p>
       <div class="contact-cta">
@@ -857,6 +973,8 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
   </div>
 </section>
 
+</main>
+
 <!-- ══════════════════════ FOOTER ══════════════════════ -->
 <footer>
   <div class="wrap foot-inner">
@@ -872,6 +990,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
   /* ── typing effect ── */
   var roles = [
     'Web Developer',
+    'Full-Stack Builder',
     'Game Developer',
     'Website Manager',
     'Business Solutions Builder',
@@ -919,6 +1038,23 @@ footer{border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
       burger.setAttribute('aria-expanded', 'false');
     }
   });
+
+  /* ── highlight current section in nav ── */
+  var navAnchors = links.querySelectorAll('a[href^="#"]:not(.btn)');
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        navAnchors.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    navAnchors.forEach(function (a) {
+      var sec = document.querySelector(a.getAttribute('href'));
+      if (sec) spy.observe(sec);
+    });
+  }
 
   /* ── scroll reveal ── */
   var items = document.querySelectorAll('.reveal');
